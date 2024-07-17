@@ -1,0 +1,58 @@
+﻿@model ManagerEmployees.Models.ViewModels.EmpleadoVM
+@{
+    ViewData["Title"] = "Empleado_detalle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if(Model.oEmployee.Id == 0){
+    <h1>Create employee</h1>
+} else {
+    <h1>Edit employee</h1>
+}
+
+<div class="row">
+    <div class="col-sm-4">
+        <form asp-action="Empleado_detalle" asp-controller="Home" method="post">
+            <input type="hidden" asp-for="oEmployee.Id"/>
+
+            <div class="mb-2">
+                <label class="form-label" asp-for="oEmployee.Name">Name</label>
+                <input class="form-control form-control-sm" asp-for="oEmployee.Name" type="text" required/>
+            </div>
+
+            <div class="mb-2">
+                <label class="form-label" asp-for="oEmployee.LastName">Last name</label>
+                <input class="form-control form-control-sm" asp-for="oEmployee.LastName" type="text" required />
+            </div>
+
+            <div class="mb-2">
+                <label class="form-label" asp-for="oEmployee.Rfc">RFC</label>
+                <input class="form-control form-control-sm" asp-for="oEmployee.Rfc" type="text" required />
+                @Html.ValidationMessageFor(model => model.oEmployee.Rfc, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="mb-2">
+                <label class="form-label" asp-for="oEmployee.BornDate">Born date</label>
+                <input class="form-control form-control-sm" asp-for="oEmployee.BornDate" type="date" required />
+            </div>
+            <div class="mb-2">
+                <label class="form-label" asp-for="oEmployee.oStatus.IdStatus">Status</label>
+                <select class="form-select form-select-sm" asp-for="oEmployee.IdStatus" asp-items="@Model.oListaStatus" required>
+                    <option selected disabled>--Select--</option>
+                </select>
+            </div>
+
+            <div class="mb-2">
+                @if(Model.oEmployee.Id == 0){
+                    <button class="btn btn-primary btn-sm w-25" type="submit">Create</button>
+                }else{
+                    <button class="btn btn-primary btn-sm w-25" type="submit">Update</button>
+                }
+                <a class="btn btn-dark btn-sm" asp-action="Index" asp-controller="Home" asp-route-idEmployee="0">Back</a>
+
+            </div>
+
+        </form>
+
+    </div>
+</div>

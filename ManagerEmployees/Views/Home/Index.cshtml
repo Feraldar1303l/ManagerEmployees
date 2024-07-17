@@ -1,0 +1,61 @@
+﻿@model List<ManagerEmployees.Models.Employee>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Empleados</h1>
+</div>
+
+<div>
+    <div class="card-header">
+        <h5>Employee list</h5>
+    </div>
+    <div class="card-body">
+        <a class="btn btn-success btn-sm" asp-action="Empleado_detalle" asp-controller="Home" asp-route-idEmpleado="0">Create</a>
+        <hr/>
+        <div class="row mb-3">
+            <div class="col-12">
+                <form asp-action="Index" method="get" class="form-inline">
+                    <div class="input-group">
+                        <input type="text" name="nameFilter" class="form-control" placeholder="Name Filter" style="max-width: 200px;">
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-primary">Search</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <hr />
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Last name</th>
+                    <th>RFC</th>
+                    <th>Born date</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var item in Model)
+                {
+                    <tr>
+                        <td>@item.Name</td>
+                        <td>@item.LastName</td>
+                        <td>@item.Rfc</td>
+                        <td>@item.BornDate.ToString("dd/MM/yyyy")</td>
+                        <td>@item.oStatus.Description</td>
+                        <td>
+                            <a class="btn btn-primary btn-sm" asp-action="Empleado_detalle" asp-controller="Home" asp-route-idEmployee="@item.Id">Edit</a>
+                            <a class="btn btn-danger btn-sm" asp-action="Eliminar" asp-controller="Home" asp-route-idEmployee="@item.Id">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>
